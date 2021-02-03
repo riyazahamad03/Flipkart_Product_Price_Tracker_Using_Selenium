@@ -1,3 +1,4 @@
+#author riyaz
 import selenium
 from selenium import webdriver
 import requests
@@ -7,7 +8,7 @@ import getpass
 link_url=input("Please Enter The Url :")
 desired_price=int(input("Enter The Desired Price :"))
 print("Thank You I Will Be Notifying You Once The Price Drops")
-webdriver_path =r"C:\Users\riyaz\Desktop\python_scripts\chromedriver.exe"
+webdriver_path =r"Your Webdriver Path"
 driver=webdriver.Chrome(webdriver_path )
 def price_check():
     try:
@@ -20,7 +21,7 @@ def price_check():
         converted_price=float(price.replace("₹","").replace(",","").replace(" ",""))
         print(converted_price)
         if (converted_price<=desired_price):
-            send_message("\n" "\n"+"Hey Riyaz Price Fell Down Grab It Fast "+"\n" "\n"+name+"\n" "\n"+str(price)+"\n" "\n"+link_url)
+            send_message("\n" "\n"+"Hey  Price Fell Down Grab It Fast "+"\n" "\n"+name+"\n" "\n"+str(price)+"\n" "\n"+link_url)
         else:
             print("*Not At Your Desired Price")
         
@@ -29,8 +30,8 @@ def price_check():
 
 def send_message(bot_message):
     
-    bot_token = '1145135629:AAEOUYNdMrO7eujmgjlHdhvjK1E-2XYnIYY'
-    bot_chatID = '620621191'
+    bot_token = 'Your Telegram Bot Token'
+    bot_chatID = 'Your Telegram Chat Id'
     send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
 
     response = requests.get(send_text)
@@ -38,4 +39,4 @@ def send_message(bot_message):
     return response.json()
 while(True):
     price_check()
-    time.sleep(4)
+    time.sleep(5)
