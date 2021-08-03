@@ -6,4 +6,3 @@ This Is A simple Script With Low Lines Of Codes
 In This Scrpt The Given Product Will Track For Every 5 sec And Send Alert To Your Telegram Bot 
 You Can Customize The Range Of time 
 Thats All This Script Is About ....
-With Regards RIYAZ AHAMED 
