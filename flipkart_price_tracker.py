@@ -1,27 +1,39 @@
 #author riyaz
-import selenium
 from selenium import webdriver
 import requests
-import datetime
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from datetime import datetime
+from webdriver_manager.chrome import ChromeDriverManager
 import time
-import getpass
+
 link_url=input("Please Enter The Url :")
 desired_price=int(input("Enter The Desired Price :"))
 print("Thank You I Will Be Notifying You Once The Price Drops")
-webdriver_path =r"Your Webdriver Path"
-driver=webdriver.Chrome(webdriver_path )
+webdriver_path =r"C:\Users\riyaz\Desktop\python_scripts\chromedriver.exe"
+service_obj = Service(webdriver_path)
+options = webdriver.ChromeOptions()
+options.add_experimental_option("detach",True)
+# options.add_argument('--headless') 
+options.add_argument('start-maximized') 
+options.add_argument('disable-infobars')
+options.add_argument('--disable-extensions')
+options.add_argument('--disable-popup-blocking')
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+# driver = webdriver.Chrome(service=service_obj)
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
 def price_check():
     try:
-        
         driver.get(link_url)
         time.sleep(3)
-        name=driver.find_element_by_class_name("B_NuCI").text
+        name=driver.find_element(By.CLASS_NAME,"B_NuCI").text
         print(name)
-        price=driver.find_element_by_class_name("_30jeq3._16Jk6d").text
+        price=driver.find_element(By.CLASS_NAME,"_30jeq3._16Jk6d").text
         converted_price=float(price.replace("₹","").replace(",","").replace(" ",""))
         print(converted_price)
         if (converted_price<=desired_price):
-            send_message("\n" "\n"+"Hey  Price Fell Down Grab It Fast "+"\n" "\n"+name+"\n" "\n"+str(price)+"\n" "\n"+link_url)
+            send_message("\n" "\n"+name+"\n" "\n"+str(price)+"\n" "\n"+link_url)
+            # time.sleep(60)
         else:
             print("*Not At Your Desired Price")
         
